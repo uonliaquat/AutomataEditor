@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id "org.sonarqube" version "2.7"
+}
+
+group 'edu.editor'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+javafx{
+    modules = ['javafx.controls', 'javafx.fxml']
+    version = '11.0.2'
+}
+
+
+mainClassName = 'edu.editor.Main'

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.editor.MainController">
+   <children>
+      <VBox fx:id="drawer" layoutX="1.0" prefHeight="802.0" prefWidth="144.0" style="-fx-background-color: #AD9B97#AD9B97;">
+         <children>
+            <Button fx:id="minimizeDFABtn" mnemonicParsing="false" onAction="#processButtons" prefHeight="27.0" prefWidth="155.0" text="Button" />
+         </children>
+      </VBox>
+      <Pane fx:id="pane" layoutX="-1.0" layoutY="31.0" prefHeight="768.0" prefWidth="1500.0" />
+      <ToolBar layoutX="33.0" layoutY="-2.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="5.0" prefWidth="1468.0" style="-fx-background-color: lightblue;">
+         <items>
+            <Button fx:id="playBtn" mnemonicParsing="false" prefHeight="27.0" prefWidth="26.0" style="-fx-background-color: lightblue;">
+               <graphic>
+                  <ImageView fitHeight="17.0" fitWidth="20.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/play.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </items>
+      </ToolBar>
+      <Button fx:id="menu" mnemonicParsing="false" prefHeight="36.0" prefWidth="36.0" style="-fx-background-color: lightblue;">
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="20.0" focusTraversable="true" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/menu.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

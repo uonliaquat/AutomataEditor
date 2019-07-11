@@ -1,0 +1,38 @@
+
+isquid:S11922"FDefine a constant instead of duplicating this literal "[{},]" 3 times.(–Ñ¼îúÿÿÿÿ8¶á”¼­-
+Lsquid:S1905I")Remove this unnecessary cast to "Column".(ı¨ï«úÿÿÿÿ8¶á”¼­-
+Vsquid:S1659"3Declare "minimizedInitialState" on a separate line.(®ğÍ—ıÿÿÿÿ8¶á”¼­-
+Fsquid:S1604'"(Make this anonymous inner class a lambda(Ÿîä‹8¶á”¼­-
+@squid:S1643’"Use a StringBuilder instead.(ØÙ·úÿÿÿÿ8¶á”¼­-
+{squid:S00116"WRename this field "states_field" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š“¢Àÿÿÿÿÿ8¶á”¼­-
+\squid:S1659"9Declare "minimizedDfaTransitionTable" on a separate line.(´—şÿÿÿÿ8¶á”¼­-
+wsquid:S2293|"YReplace the type specification in this constructor call with the diamond operator ("<>").(˜¼ø«8¶á”¼­-
+Nsquid:S1659"*Declare "final_states" on a separate line.(«Ã»¨ıÿÿÿÿ8¶á”¼­-
+vsquid:S2293v"YReplace the type specification in this constructor call with the diamond operator ("<>").(•¦›
+8¶á”¼­-
+~squid:S00116"ZRename this field "alphabets_field" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š“¢Àÿÿÿÿÿ8¶á”¼­-
+ysquid:S00116""ZRename this field "finalStates_arr" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ‡‚…8¶á”¼­-
+vsquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«Ã»¨ıÿÿÿÿ8¶á”¼­-
+squid:S00116"]Rename this field "initialState_field" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š“¢Àÿÿÿÿÿ8¶á”¼­-
+Ksquid:S1604F"(Make this anonymous inner class a lambda(¡‰§öşÿÿÿÿ8¶á”¼­-
+osquid:CommentedOutCodeLine·"<This block of commented-out lines of code should be removed.(É©¹öûÿÿÿÿ8Áõ£-
+tsquid:S00116""URename this field "states_arr" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ‡‚…8¶á”¼­-
+wsquid:S00116#"XRename this field "initial_state" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ùÈƒ8¶á”¼­-
+|squid:S2293q"YReplace the type specification in this constructor call with the diamond operator ("<>").(ä‰Óâşÿÿÿÿ8¶á”¼­-
+Psquid:S1659"-Declare "alphabets_field" on a separate line.(Š“¢Àÿÿÿÿÿ8¶á”¼­-
+=squid:S1659Z"Declare "y" on a separate line.(äÛÁ”8¶á”¼­-
+Ssquid:S1659"0Declare "minimizedAlphabets" on a separate line.(®ğÍ—ıÿÿÿÿ8¶á”¼­-
+rsquid:S00100n"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Á»òÏüÿÿÿÿ8¶á”¼­-
+Ksquid:S1659""-Declare "finalStates_arr" on a separate line.(µ‡‚…8¶á”¼­-
+wsquid:S00116""XRename this field "alphabets_arr" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ‡‚…8¶á”¼­-
+Ssquid:S1659"0Declare "initialState_field" on a separate line.(Š“¢Àÿÿÿÿÿ8¶á”¼­-
+@squid:S1643•"Use a StringBuilder instead.(Åÿ×äøÿÿÿÿ8¶á”¼­-
+jsquid:CommentedOutCodeLine°"<This block of commented-out lines of code should be removed.(ÛÂïá8¶á”¼­-
+€squid:S00116"\Rename this field "finalStates_field" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š“¢Àÿÿÿÿÿ8¶á”¼­-
+Isquid:S1659""+Declare "alphabets_arr" on a separate line.(µ‡‚…8¶á”¼­-
+ssquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ãĞ‘Èşÿÿÿÿ8¶á”¼­-
+osquid:CommentedOutCodeLine²"<This block of commented-out lines of code should be removed.(ÄÎ‹ôüÿÿÿÿ8Áõ£-
+osquid:CommentedOutCodeLine´"<This block of commented-out lines of code should be removed.(¹°Øîûÿÿÿÿ8Áõ£-
+Usquid:S1659"2Declare "minimizedFinalStates" on a separate line.(®ğÍ—ıÿÿÿÿ8¶á”¼­-
+rsquid:S1450"TRemove the "model" field and declare it as a local variable in the relevant methods.(÷„Ãí8¶á”¼­-
+Rsquid:S1659"/Declare "finalStates_field" on a separate line.(Š“¢Àÿÿÿÿÿ8¶á”¼­-

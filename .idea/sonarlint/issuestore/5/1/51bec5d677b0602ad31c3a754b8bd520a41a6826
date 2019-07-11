@@ -1,0 +1,9 @@
+
+isquid:S3776E"RRefactor this method to reduce its Cognitive Complexity from 34 to the 15 allowed.(·ž¥û
+Ksquid:S1066h"/Merge this if statement with the enclosing one.(àÉþ„ýÿÿÿÿ
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(©Á”ßþÿÿÿÿ
+?squid:S1659"(Declare "lastMouseY" on a separate line.(õ¹¬È
+8squid:S1170"!Make this final field static too.(Õ§õï
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(©Á”ßþÿÿÿÿ
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(©Á”ßþÿÿÿÿ
+wsquid:S00115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(©Á”ßþÿÿÿÿ

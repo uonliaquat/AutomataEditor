@@ -1,0 +1,18 @@
+
+vsquid:S3776»"RRefactor this method to reduce its Cognitive Complexity from 24 to the 15 allowed.(ÿ¾ŸÕüÿÿÿÿ8‡§þš«-
+jsquid:CommentedOutCodeLine¯"<This block of commented-out lines of code should be removed.(±èÙ”8Ä„â¿°-
+‡"squid:ClassVariableVisibilityCheck	"RMake length a static final constant or non-public and provide accessors if needed.(ºÿÁô8‡§þš«-
+_squid:S1126V"AReplace this if-then-else statement by a single return statement.(Î¨§ø8‡§þš«-
+dsquid:S1126^"AReplace this if-then-else statement by a single return statement.(”å“Šúÿÿÿÿ8‡§þš«-
+dsquid:S1126g"AReplace this if-then-else statement by a single return statement.(ûØƒžøÿÿÿÿ8‡§þš«-
+vsquid:S00117•"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¾£öóûÿÿÿÿ8ˆÕû¿°-
+_squid:HiddenFieldCheckN"6Rename "set" which hides the field declared at line 8.(¼òÝÀ8‡§þš«-
+usquid:S00117?"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(«ãÊüÿÿÿÿ8‡§þš«-
+ysquid:S1488N"[Immediately return this expression instead of assigning it to the temporary variable "set".(¼òÝÀ8‡§þš«-
+Bsquid:S1640"Convert this Map to an EnumMap.(ª€ýÿÿÿÿ8‡§þš«-
+Isquid:S1168E"+Return an empty collection instead of null.(¥¹ï8‡§þš«-
+Isquid:S1168Q"+Return an empty collection instead of null.(¥¹ï8‡§þš«-
+~squid:S1488B"[Immediately return this expression instead of assigning it to the temporary variable "set".(çé¶žùÿÿÿÿ8‡§þš«-
+psquid:S00117K"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³àŠ8‡§þš«-
+Jsquid:S1444	",Make this "public static length" field final(ºÿÁô8‡§þš«-
+dsquid:HiddenFieldCheckB"6Rename "set" which hides the field declared at line 8.(çé¶žùÿÿÿÿ8‡§þš«-

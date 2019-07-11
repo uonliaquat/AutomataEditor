@@ -1,0 +1,9 @@
+
+hsquid:UselessImportCheck"8Remove this unused import 'javafx.application.Platform'.(§“óùÿÿÿÿ8ù¢®Æ-
+isquid:CommentedOutCodeLineN"<This block of commented-out lines of code should be removed.(ÕÃ°8àößÆ-
+qsquid:S00101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(¬é‘¥şÿÿÿÿ8àößÆ-
+nsquid:CommentedOutCodeLine1"<This block of commented-out lines of code should be removed.(ó˜–úÿÿÿÿ8àößÆ-
+usquid:S00117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(’Íı‚ıÿÿÿÿ8àößÆ-
+usquid:S00117V"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¨Ô×æúÿÿÿÿ8àößÆ-
+]squid:S1118":Add a private constructor to hide the implicit public one.(¬é‘¥şÿÿÿÿ8àößÆ-
+Fsquid:S16047"(Make this anonymous inner class a lambda(ñŞÕî8àößÆ-
