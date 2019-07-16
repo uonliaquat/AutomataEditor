@@ -19,7 +19,7 @@ public interface Set<T> {
     int getLength();
     long getSet();
     ENUM getType();
-    List<Object> getElements();
+    List<T> getElements();
 
 
 

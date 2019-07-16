@@ -145,7 +145,14 @@ public class BitSet<T> implements Set<T> {
 
 
     @Override
-    public List<Object> getElements() {
+    public List<T> getElements() {
+        if(this.type.equals(ENUM.STRING)){
+
+        }
+        else{
+
+        }
+
         byte[] bit_subset = ByteBuffer.allocate(4).putLong(set).array();
         List<Integer> list = new ArrayList<>();
         if(this.type.equals(ENUM.STRING)){
