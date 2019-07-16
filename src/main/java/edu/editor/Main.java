@@ -23,5 +23,7 @@ public class Main extends Application {
         primaryStage.setTitle("Automata Editor");
         primaryStage.setScene(new Scene(root, 1500, 800));
         primaryStage.show();
+
+
     }
 }
