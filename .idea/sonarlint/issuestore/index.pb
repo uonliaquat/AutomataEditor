@@ -39,3 +39,7 @@ $src/main/java/edu/editor/BitSet.java,9/9/996260f12b96f43c94c375af148d5928305fb
 ,src/main/java/edu/editor/FiniteAutomata.java,6/2/62b8b2dc1e8d572e7aa85ce6943663a4bd24d5c9
 T
 $src/main/java/edu/editor/SetMap.java,8/a/8aad893acb5051caf4152cf64f812f4f6b135552
+S
+#src/main/java/edu/console/test.java,6/f/6f45bd97a50b03f29508fb55fbcf411e9b96949a
+W
+'src/main/java/edu/editor/Constants.java,b/7/b7e1ee2155f912d040227b982f35801881ed62f2

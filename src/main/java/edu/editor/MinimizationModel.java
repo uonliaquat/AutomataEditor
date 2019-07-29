@@ -3,22 +3,22 @@ package edu.editor;
 import java.util.*;
 
 public class MinimizationModel {
-    private FiniteAutomata<String> dfa;
+    private FiniteAutomata<Integer> dfa;
 
-    public MinimizationModel(FiniteAutomata<String> dfa) {
+    public MinimizationModel(FiniteAutomata dfa) {
         this.dfa = dfa;
     }
 
-    private Set<String> EliminateUnreachableStates() {
-        Stack<String> stack = new Stack<>();
+    private Set<Integer> EliminateUnreachableStates() {
+        Stack<Integer> stack = new Stack<>();
         stack.push(dfa.getInitialState());
-        Set<String> result = new BitSet<String>(ENUM.STRING);
+        Set<Integer> result = new BitSet<>(BitSet.ENUM.INTEGER);
         while (!stack.isEmpty()) {
-            String state = stack.pop();
+            int state = stack.pop();
             result.insert(state);
-            dfa.getAlphabets().getElements();
-            for(String alphabet : dfa.getAlphabets().getElements()){
-                String nextState = dfa.getTransition()[getStateIndex(state)][getSymbolIndex(alphabet)];
+            List<Integer> list = dfa.getTransition().get(state);
+            for(int i = 0; i < list.size(); i++){
+                int nextState = list.get(i);
                 if(!stack.contains(nextState) && !result.contains(nextState)){
                     stack.push(nextState);
                 }
@@ -27,35 +27,17 @@ public class MinimizationModel {
         return result;
     }
 
-
-//        Stack<String> stack = new Stack<>();
-//        Set<String> result = new BitSet<String>(ENUM.STRING);
-//        result.insert(dfa.getInitialState());
-//        stack.push(dfa.getInitialState());
-//        while (!stack.isEmpty()) {
-//            String state = stack.pop();
-//            result.insert(state);
-//            for (String symbol : dfa.getAlphabets().getSet()) {
-//                String s = dfa.getTransition()[getStateIndex(state)][getSymbolIndex(symbol)];
-//                if (!stack.contains(s) && !result.contains(s)) {
-//                    stack.push(s);
-//                }
-//            }
-//        }
-//        return result;
-
- //   }
-
-    private Set<String> ReduceTrapStates(Set<String> set) {
+    private Set<Integer> ReduceTrapStates(Set<Integer> set) {
         int trapStates = 0;
         boolean check = false;
-        Set<String> result = new BitSet<String>(ENUM.STRING);
+        Set<Integer> result = new BitSet<>(BitSet.ENUM.INTEGER);
 
         int stateIndex = 0;
-        for (String i : set.getElements()) {
+        for (int i : set.getElements()) {
+            List<Integer> list = dfa.getTransition().get(i);
             int count = 0;
-            for (int j = 0; j < dfa.getAlphabets().getSize(); j++) {
-                if (i.equals(dfa.getTransition()[stateIndex][j])) {
+            for(int j = 0; j < list.size(); j++){
+                if(i == list.get(j)){
                     count++;
                 }
             }
@@ -73,13 +55,13 @@ public class MinimizationModel {
 
     }
 
-    private Set<Set<String>> ZeroEquivalence(Set<String> set) {
-        Set<String> finalStates = new BitSet<String>(ENUM.STRING);
-        Set<String> nonFinalStates = new BitSet<String>(ENUM.STRING);
-        for (String i : set.getElements()) {
+    private Set<Set> ZeroEquivalence(Set<Integer> set) {
+        Set<Integer> finalStates = new BitSet<>(BitSet.ENUM.INTEGER);
+        Set<Integer> nonFinalStates = new BitSet<>(BitSet.ENUM.INTEGER);
+        for (int i : set.getElements()) {
             boolean check = false;
-            for (String j : dfa.getFinalStates().getElements()) {
-                if (i.equals(j)) {
+            for (Object j : dfa.getFinalStates().getElements()) {
+                if (j.equals(i)) {
                     check = true;
                 }
             }
@@ -89,7 +71,7 @@ public class MinimizationModel {
                 finalStates.insert(i);
             }
         }
-        Set<Set<String>> result = new BitSet<Set<String>>(ENUM.SET_STRING);
+        Set<Set> result = new BitSet<>(BitSet.ENUM.SET_INTEGER);
         if (nonFinalStates.getSize() > 0) {
             result.insert(nonFinalStates);
         }
@@ -99,48 +81,54 @@ public class MinimizationModel {
         return result;
     }
 
-    public FiniteAutomata<Set<String>> minimize() {
+    public FiniteAutomata<Set> minimize() {
         //get states
-        Set<Set<String>> states = getStates(ZeroEquivalence(ReduceTrapStates(EliminateUnreachableStates())));
+        Set<Set> states = getStates(ZeroEquivalence(ReduceTrapStates(EliminateUnreachableStates())));
 
         //get alphabets
-        Set<String> symbols = dfa.getAlphabets();
+        Set<Integer> symbols = dfa.getAlphabets();
 
         //get initial state
-        Set<String> initial_state = getInitialState(states);
+        Set<Integer> initial_state = getInitialState(states);
 
         //get final states
-        Set<Set<String>> final_states = getFinalStates(states);
+        Set<Set> final_states = getFinalStates(states);
 
         //get Transitions
-        Set<String>[][] transitions = getTransition(states);
+        Map<Set, List<Set>> transitions = getTransition(states);
 
-        return new FiniteAutomata<Set<String>>()
+
+
+        return new FiniteAutomata<Set>()
                 .setStates(states)
                 .setAlphabets(symbols)
                 .setInitialState(initial_state)
                 .setFinalStates(final_states)
                 .setTransition(transitions);
 
+
+
     }
 
-    private Set<Set<String>> getStates(Set<Set<String>> sets) {
-        Set<Set<String>> result = new BitSet<Set<String>>(ENUM.SET_STRING);
-        Set<Set<String>> temp = null;
-        for (Set<String> i : sets.getElements()) {
-            temp = new BitSet<Set<String>>(ENUM.SET_STRING);
+    private Set<Set> getStates(Set<Set> sets) {
+        Set<Set> result = new BitSet<>(BitSet.ENUM.SET_INTEGER);
+        Set<Set<Integer>> temp = null;
+        for (Set<Integer> i : sets.getElements()) {
+            temp = new BitSet<>(BitSet.ENUM.SET_INTEGER);
             if (i.getSize() > 1) {
-                Set<String> current_set = new BitSet<String>(ENUM.STRING);
+                Set<Integer> current_set = new BitSet<>(BitSet.ENUM.INTEGER);
                 current_set.insert(i.getElements().iterator().next());
                 temp.insert(current_set);
-                for (String element : i.getElements()) {
+                for (int element : i.getElements()) {
+                    List<Integer> list1 = dfa.getTransition().get(element);
                     if (!current_set.contains(element)) {
                         boolean isEqual = true;
-                        for (Set<String> l : temp.getElements()) {
+                        for (Set<Integer> l : temp.getElements()) {
+                            List<Integer> list2 = dfa.getTransition().get(l.getElements().iterator().next());
                             isEqual = true;
-                            for (String symbol : dfa.getAlphabets().getElements()) {
-                                if (!isEquivalent(sets, dfa.getTransition()[getStateIndex(element)][getSymbolIndex(symbol)],
-                                        dfa.getTransition()[getStateIndex(l.getElements().iterator().next())][getSymbolIndex(symbol)])) {
+
+                            for(int k = 0; k < list1.size(); k++){
+                                if (!isEquivalent(sets, list1.get(k), list2.get(k))) {
                                     isEqual = false;
                                     break;
                                 }
@@ -151,7 +139,7 @@ public class MinimizationModel {
                             }
                         }
                         if (!isEqual) {
-                            Set<String> newSet = new BitSet<String>(ENUM.STRING);
+                            Set<Integer> newSet = new BitSet<>(BitSet.ENUM.INTEGER);
                             newSet.insert(element);
                             temp.insert(newSet);
                         }
@@ -160,44 +148,44 @@ public class MinimizationModel {
             } else {
                 temp.insert(i);
             }
-            for (Set<String> t : temp.getElements()) {
+            for (Set<Integer> t : temp.getElements()) {
                 result.insert(t);
             }
         }
         if (!result.isEqual(sets)) {
             result = getStates(result);
         }
+
         return result;
 
     }
 
 
-    private Set<String>[][] getTransition(Set<Set<String>> set) {
-        int i = 0, j = 0;
-        Set<String>[][] result = new Set[set.getSize()][dfa.getAlphabets().getSize()];
-        for (Set<String> s : set.getElements()) {
-            String itr = s.getElements().iterator().next();
-            for (String symbol : dfa.getAlphabets().getElements()) {
-                String st = dfa.getTransition()[getStateIndex(itr)][getSymbolIndex(symbol)];
-                for (Set<String> k : set.getElements()) {
+    private  Map<Set, List<Set>>  getTransition(Set<Set> set) {
+        Map<Set, List<Set>> result = new HashMap<>();
+        for (Set<Integer> s : set.getElements()) {
+            int itr = s.getElements().iterator().next();
+            List<Integer> list = dfa.getTransition().get(itr);
+            List<Set> lst = new ArrayList<>();
+            for(int m = 0; m < list.size(); m++){
+                int st = list.get(m);
+                for (Set k : set.getElements()) {
                     if (k.contains(st)) {
-                        result[i][j] = k;
+                        lst.add(k);
                         break;
                     }
                 }
-                j++;
             }
-            i++;
-            j = 0;
+            result.put(s, lst);
         }
         return result;
     }
 
-    private Set<Set<String>> getFinalStates(Set<Set<String>> set) {
-        Set<Set<String>> result = new BitSet<Set<String>>(ENUM.SET_STRING);
-        for (Set<String> i : set.getElements()) {
-            for (String f : dfa.getFinalStates().getElements()) {
-                if (i.contains(f)) {
+    private Set<Set> getFinalStates(Set<Set> set) {
+        Set<Set> result = new BitSet<>(BitSet.ENUM.SET_INTEGER);
+        for (Set<Integer> i : set.getElements()) {
+            for (Object f : dfa.getFinalStates().getElements()) {
+                if (i.contains((int)f)) {
                     result.insert(i);
                     break;
                 }
@@ -207,8 +195,8 @@ public class MinimizationModel {
         return result;
     }
 
-    private Set<String> getInitialState(Set<Set<String>> set) {
-        for (Set<String> s : set.getElements()) {
+    private Set<Integer> getInitialState(Set<Set> set) {
+        for (Set s : set.getElements()) {
             if (s.contains(dfa.getInitialState())) {
                 return s;
             }
@@ -216,8 +204,8 @@ public class MinimizationModel {
         return null;
     }
 
-    private boolean isEquivalent(Set<Set<String>> sets, String x, String y) {
-        for (Set<String> i : sets.getElements()) {
+    private boolean isEquivalent(Set<Set> sets, int x, int y) {
+        for (Set<Integer> i : sets.getElements()) {
             if (i.contains(x) && i.contains(y)) {
                 return true;
             }
@@ -225,9 +213,9 @@ public class MinimizationModel {
         return false;
     }
 
-    private int getStateIndex(String state) {
+    private int getStateIndex(int state) {
         int index = 0;
-        for (String i : dfa.getStates().getElements()) {
+        for (Object i : dfa.getStates().getElements()) {
             if (i.equals(state)) {
                 return index;
             }
@@ -235,11 +223,11 @@ public class MinimizationModel {
         }
         return -1;
     }
-//
-    public int getSymbolIndex(String state) {
+    //
+    public int getSymbolIndex(int state) {
         int index = 0;
-        for (String i : dfa.getAlphabets().getElements()) {
-            if (i.equals(state)) {
+        for (int i : dfa.getAlphabets().getElements()) {
+            if (i== state) {
                 return index;
             }
             index++;
@@ -247,11 +235,11 @@ public class MinimizationModel {
         return -1;
     }
 
-//    private boolean isKthBitSet(long set, long n)
-//    {
-//        long i = 1;
-//        if (((i << n) & set) != 0)
-//            return true;
-//        return false;
-//    }
+    private boolean isKthBitSet(long set, long n)
+    {
+        long i = 1;
+        if (((i << n) & set) != 0)
+            return true;
+        return false;
+    }
 }

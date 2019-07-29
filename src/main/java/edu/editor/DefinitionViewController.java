@@ -11,7 +11,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.text.Text;
 
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DefinitionViewController implements Initializable {
 
@@ -30,9 +30,9 @@ public class DefinitionViewController implements Initializable {
     private MinimizationModel model;
 
 
-    private String[][] transitionData;
+    private Map<Integer, List<Integer>> transitionData;
     private String[] states_arr, alphabets_arr, finalStates_arr;
-    private String initial_state;
+    private int initial_state;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,9 +49,9 @@ public class DefinitionViewController implements Initializable {
     private void getValidText(String states, String symbols, String initialState, String finalStates){
         states_arr = states.split("[{},]");
         alphabets_arr = symbols.split("[{},]");
-        initial_state = initialState;
+        initial_state = Integer.parseInt(initialState);
         finalStates_arr = finalStates.split("[{},]");
-        transitionData = new String[states_arr.length - 1][alphabets_arr.length - 1];
+        transitionData = new HashMap<>();
     }
 
     private void generateDFATransitionTable(){
@@ -90,17 +90,23 @@ public class DefinitionViewController implements Initializable {
         int  x = 0, y = 0;
         boolean check = false;
         for (Node r : dfaTransitionTable.lookupAll(".table-row-cell")) {
+            int key = 0;
+            List list = new ArrayList();
             for (Node c : r.lookupAll(".table-cell")) {
+                TableCell<?, ?> tc = (TableCell<?, ?>) c;
+                if(tc.getText() == null){
+                    return;
+                }
                 if(check) {
-                    TableCell<?, ?> tc = (TableCell<?, ?>) c;
-                    if(tc.getText() == null){
-                        return;
-                    }
-                    transitionData[x][y] = tc.getText();
+                    list.add(Integer.parseInt(tc.getText()));
                     y++;
+                }
+                else{
+                    key = Integer.parseInt(tc.getText());
                 }
                 check = true;
             }
+            transitionData.put(key, list);
             check = false;
             x++;
             y = 0;
@@ -110,24 +116,24 @@ public class DefinitionViewController implements Initializable {
     public void MinimizeDFA(){
         getTableData();
 
-        Set<String> states = new BitSet<String>(ENUM.STRING);
+        Set<Integer> states = new BitSet<>(BitSet.ENUM.INTEGER);
         for(int i = 1; i < states_arr.length; i++){
-            states.insert(states_arr[i]);
+            states.insert(Integer.parseInt(states_arr[i]));
         }
 
-        Set<String> alphabets = new BitSet<String>(ENUM.STRING);
+        Set<Integer> alphabets = new BitSet<>(BitSet.ENUM.INTEGER);
         for(int i = 1; i < alphabets_arr.length; i++){
-            alphabets.insert(alphabets_arr[i]);
+            alphabets.insert(Integer.parseInt(alphabets_arr[i]));
         }
 
 
-        Set<String> finalStates = new BitSet<String>(ENUM.STRING);
+        Set<Integer> finalStates = new BitSet<>(BitSet.ENUM.INTEGER);
         for(int i = 1; i < finalStates_arr.length; i++){
-            finalStates.insert(finalStates_arr[i]);
+            finalStates.insert(Integer.parseInt(finalStates_arr[i]));
         }
 
 
-        FiniteAutomata dfa = new FiniteAutomata()
+        FiniteAutomata<Integer> dfa = new FiniteAutomata()
                 .setStates(states)
                 .setAlphabets(alphabets)
                 .setInitialState(initial_state)
@@ -135,12 +141,12 @@ public class DefinitionViewController implements Initializable {
                 .setFinalStates(finalStates);
 
         model = new MinimizationModel(dfa);
-        FiniteAutomata<Set<String>> minimizedDFA =  model.minimize();
+        FiniteAutomata<Set> minimizedDFA =  model.minimize();
         UpdateTable(minimizedDFA);
 
     }
 
-    private void UpdateTable(FiniteAutomata<Set<String>> minimizedDFA){
+    private void UpdateTable(FiniteAutomata<Set> minimizedDFA){
         String states = "[", final_states = "[";
         for(int i = 0; i < minimizedDFA.getStates().getSize(); i++){
             states = states + minimizedDFA.getStates().getElements().get(i).getElements().toString();
@@ -157,7 +163,7 @@ public class DefinitionViewController implements Initializable {
         generateMinimisedDFATransitionTable(minimizedDFA);
     }
 
-    private void generateMinimisedDFATransitionTable(FiniteAutomata<Set<String>> minimizedDFA){
+    private void generateMinimisedDFATransitionTable(FiniteAutomata<Set> minimizedDFA){
 
         for(int i = -1; i < minimizedDFA.getAlphabets().getSize(); i++){
             TableColumn c;
@@ -165,11 +171,11 @@ public class DefinitionViewController implements Initializable {
                 c= new TableColumn<>("");
             }
             else {
-                c = new TableColumn<>(minimizedDFA.getAlphabets().getElements().get(i));
+                c = new TableColumn<>(minimizedDFA.getAlphabets().getElements().get(i).toString());
             }
             c.setMinWidth(100);
-            if(i == 0) {
-                c.setCellValueFactory(new PropertyValueFactory<>("name"));
+            if(i > 0) {
+                c.setCellValueFactory(new PropertyValueFactory<>(Integer.toString(i)));
             }
             c.setCellFactory(TextFieldTableCell.forTableColumn());
             minimizedDfaTransitionTable.getColumns().add(c);
@@ -187,11 +193,18 @@ public class DefinitionViewController implements Initializable {
         }
 
 
-        for(int i = 0; i < minimizedDFA.getStates().getSize(); i++){
-            Column c = new Column(minimizedDFA.getStates().getElements().get(i).getElements().toString());
-            minimizedDfaTransitionTable.getItems().add(c);
-        }
+//        for(int i = 0; i < minimizedDFA.getStates().getSize(); i++){
+//            Column c = new Column(minimizedDFA.getStates().getElements().get(i).getElements().toString());
+//            minimizedDfaTransitionTable.getItems().add(c);
+//        }
 
+        for (Map.Entry<Set, List<Set>> entry : minimizedDFA.getTransition().entrySet()) {
+           List<Set> list = entry.getValue();
+           for(int i = 0; i < list.size(); i++){
+               Column c = new Column(list.get(i).toString());
+               minimizedDfaTransitionTable.getItems().add(c);
+           }
+        }
     }
 
     public class Column {

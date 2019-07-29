@@ -1,27 +1,31 @@
 package edu.editor;
 
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class FiniteAutomata<T>{
     private Set<T> states, finalStates;
-    private Set<String> alphabets;
-    private T[][] transition;
+    private Set<Integer> alphabets;
+    private Map<T, List<T>> transition;
     private T initialState;
 
     public FiniteAutomata(){
 
     }
     public FiniteAutomata(int noOfStates, int noOfSymbols){
-        states = new BitSet<T>(ENUM.STRING);
-        alphabets = new BitSet<String>(ENUM.STRING);
+        states = new BitSet<>(BitSet.ENUM.INTEGER);
+        alphabets = new BitSet<>(BitSet.ENUM.INTEGER);
         initialState = null;
-        transition = (T[][]) new Object[noOfStates][noOfSymbols];
-        finalStates = new BitSet<>(ENUM.STRING);
+        transition = new HashMap<>();
+        finalStates = new BitSet<>(BitSet.ENUM.INTEGER);
 
     }
 
-    public FiniteAutomata(Set<T> states, Set<String> alphabets, T initialState, T[][] transitions, Set<T> finalStates){
+    public FiniteAutomata(Set<T> states, Set<String> alphabets, T initialState, Map<T, List<T>> transitions, Set<T> finalStates){
         this.states = states;
-        this.alphabets = new BitSet<String>(ENUM.STRING);
+        this.alphabets = new BitSet<>(BitSet.ENUM.INTEGER);
         this.initialState = initialState;
         this.transition = transitions;
         this.finalStates = finalStates;
@@ -45,12 +49,12 @@ public class FiniteAutomata<T>{
         return finalStates;
     }
 
-    public FiniteAutomata<T> setAlphabets(Set<String> alphabets) {
+    public FiniteAutomata<T> setAlphabets(Set<Integer> alphabets) {
         this.alphabets = alphabets;
         return this;
     }
 
-    public Set<String> getAlphabets() {
+    public Set<Integer> getAlphabets() {
         return alphabets;
     }
 
@@ -64,12 +68,13 @@ public class FiniteAutomata<T>{
         return states;
     }
 
-    public FiniteAutomata<T> setTransition(T[][] transition) {
+    public FiniteAutomata<T> setTransition(Map<T, List<T>> transition) {
         this.transition = transition;
         return this;
     }
 
-    public T[][] getTransition() {
+    public Map<T, List<T>> getTransition() {
         return transition;
     }
+
 }

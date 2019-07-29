@@ -6,7 +6,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -33,18 +32,17 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-       drawerAction();
-       drawer.toFront();
+        drawerAction();
+        drawer.toFront();
 
-       playBtn.setOnAction(new EventHandler<ActionEvent>() {
+        playBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 //Access Minimization Root Controller
                 MinimizationRootController minimizationRootController = loader.getController();
-                if(minimizationRootController.getTabPaneSelectedIndex() == 0){
+                if (minimizationRootController.getTabPaneSelectedIndex() == 0) {
                     //graphical view
-                }
-                else{
+                } else {
                     //definition view
                     minimizationRootController.getDefinitionViewController().MinimizeDFA();
                 }
@@ -55,17 +53,17 @@ public class MainController implements Initializable {
 
     @FXML
     private void processButtons(ActionEvent actionEvent) throws IOException {
-       if(actionEvent.getSource().equals(minimizeDFABtn)){
-           if(newLoadedPane == null) {
-               loader = new FXMLLoader(getClass().getResource("/edu.editor/minimizationRoot.fxml"));
-               newLoadedPane = loader.load();
-               pane.getChildren().add(newLoadedPane);
-           }
-           //close navigation drawer
-           TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
-           closeNav.setToX(-(drawer.getWidth()));
-           closeNav.play();
-       }
+        if (actionEvent.getSource().equals(minimizeDFABtn)) {
+            if (newLoadedPane == null) {
+                loader = new FXMLLoader(getClass().getResource("/edu.editor/minimizationRoot.fxml"));
+                newLoadedPane = loader.load();
+                pane.getChildren().add(newLoadedPane);
+            }
+            //close navigation drawer
+            TranslateTransition closeNav = new TranslateTransition(new Duration(350), drawer);
+            closeNav.setToX(-(drawer.getWidth()));
+            closeNav.play();
+        }
     }
 
     private void drawerAction() {

@@ -1,5 +1,5 @@
 
-Gsquid:S1659"0Declare "definitionViewPane" on a separate line.(ˆ¯Â
-`squid:UselessImportCheck"5Remove this unused import 'javafx.scene.control.Tab'.(öÁôË8üÆ¡Î-
-Usquid:S1659"2Declare "definitionPaneLoader" on a separate line.(¹ÏÉ¡şÿÿÿÿ8Ô–¬Î-
 ?squid:S1148#"#Use a logger to log this exception.(€ÉÔ…ıÿÿÿÿ
+Usquid:S1659"2Declare "definitionPaneLoader" on a separate line.(¹ÏÉ¡şÿÿÿÿ8Ô–¬Î-
+`squid:UselessImportCheck"5Remove this unused import 'javafx.scene.control.Tab'.(öÁôË8üÆ¡Î-
+Gsquid:S1659"0Declare "definitionViewPane" on a separate line.(ˆ¯Â

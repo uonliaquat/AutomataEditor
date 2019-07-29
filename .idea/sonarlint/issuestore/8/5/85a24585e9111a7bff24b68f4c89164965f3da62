@@ -1,24 +1,24 @@
 
-|squid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¥¨Ï°úÿÿÿÿ8–•¼­-
-jsquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(Ú°à¬8¹‡…Ç¢-
-rsquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İµÿÿÿÿÿ8–•¼­-
-msquid:S001001"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰ëü—8–•¼­-
-ssquid:S1149"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ƒÿƒ—ùÿÿÿÿ8–•¼­-
-|squid:S22934"YReplace the type specification in this constructor call with the diamond operator ("<>").(¥¨Ï°úÿÿÿÿ8–•¼­-
-isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Å†í8Ëäƒ§¢-
-wsquid:S2293€"YReplace the type specification in this constructor call with the diamond operator ("<>").(·¤¹:8–•¼­-
 Csquid:S1659°"Declare "j" on a separate line.(á”æåşÿÿÿÿ8–•¼­-
 vsquid:S2293\"YReplace the type specification in this constructor call with the diamond operator ("<>").(·¤¹:8–•¼­-
-wsquid:S2293N"YReplace the type specification in this constructor call with the diamond operator ("<>").(ûíÜŠ8–•¼­-
-}squid:S2293š"YReplace the type specification in this constructor call with the diamond operator ("<>").(µù®üÿÿÿÿ8–•¼­-
-Jsquid:S1168Ø"+Return an empty collection instead of null.(¥¹ï8–•¼­-
-osquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(Ó§ña8–•¼­-
-}squid:S2293…"YReplace the type specification in this constructor call with the diamond operator ("<>").(¬Ê–úÿÿÿÿ8–•¼­-
-vsquid:S00117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬Ê–úÿÿÿÿ8–•¼­-
-rsquid:S00100L"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ³¢çıÿÿÿÿ8–•¼­-
+wsquid:S2293€"YReplace the type specification in this constructor call with the diamond operator ("<>").(·¤¹:8–•¼­-
+ssquid:S1149"PReplace the synchronized class "Stack" by an unsynchronized one such as "Deque".(ƒÿƒ—ùÿÿÿÿ8–•¼­-
+|squid:S22934"YReplace the type specification in this constructor call with the diamond operator ("<>").(¥¨Ï°úÿÿÿÿ8–•¼­-
 wsquid:S2293Å"YReplace the type specification in this constructor call with the diamond operator ("<>").(·¤¹:8–•¼­-
+rsquid:S00100L"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õ³¢çıÿÿÿÿ8–•¼­-
+isquid:CommentedOutCodeLine"<This block of commented-out lines of code should be removed.(Å†í8Ëäƒ§¢-
+vsquid:S00117…"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬Ê–úÿÿÿÿ8–•¼­-
+wsquid:S2293N"YReplace the type specification in this constructor call with the diamond operator ("<>").(ûíÜŠ8–•¼­-
+}squid:S2293…"YReplace the type specification in this constructor call with the diamond operator ("<>").(¬Ê–úÿÿÿÿ8–•¼­-
+osquid:S3776"RRefactor this method to reduce its Cognitive Complexity from 43 to the 15 allowed.(Ó§ña8–•¼­-
 xsquid:S2293ƒ"YReplace the type specification in this constructor call with the diamond operator ("<>").(”Ä´İ8–•¼­-
+}squid:S2293š"YReplace the type specification in this constructor call with the diamond operator ("<>").(µù®üÿÿÿÿ8–•¼­-
+rsquid:S00100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İµÿÿÿÿÿ8–•¼­-
+Jsquid:S1168Ø"+Return an empty collection instead of null.(¥¹ï8–•¼­-
+jsquid:CommentedOutCodeLineû"<This block of commented-out lines of code should be removed.(Ú°à¬8¹‡…Ç¢-
 nsquid:CommentedOutCodeLine/"<This block of commented-out lines of code should be removed.(éØ»Úûÿÿÿÿ8·ƒÇ¢-
+|squid:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(¥¨Ï°úÿÿÿÿ8–•¼­-
 wsquid:S2293M"YReplace the type specification in this constructor call with the diamond operator ("<>").(˜¼ø«8–•¼­-
 usquid:S00117q"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÏÀ£óşÿÿÿÿ8–•¼­-
+msquid:S001001"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰ëü—8–•¼­-
 psquid:S00117n"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó½„8–•¼­-

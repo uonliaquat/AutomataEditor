@@ -6,63 +6,75 @@ import java.util.*;
 public class BitSet<T> implements Set<T> {
 
     private long set;
-    public static int length = 64;
+    private final int length = 64;
     private int size;
-    private static Map<ENUM, SetMap> map = new HashMap<>();
-    private SetMap setMap;
+    private Map<Long, Integer> map;
+    private Map<Integer, T> reverseMap;
+    private static Map<ENUM, Map> setTypeMap = new HashMap<>();
+    private static Map<ENUM, Map> setTypeReverseMap = new HashMap<>();
     private ENUM type;
-    public BitSet(ENUM e){
+
+    private static int[] setPositions = null;
+
+    BitSet(ENUM e) {
         set = 0;
         size = 0;
-        type = e;
-        checkType(e);
+        if(setPositions == null) {
+            setPositions = new int[length];
+            for(int i = 0; i < length; i++){
+                setPositions[i] = i;
+            }
+        }
+
+        setType(e);
+
     }
 
     @Override
-    public Boolean insert(T state) {
-        int rand;
-        if(type == ENUM.SET_STRING || type == ENUM.SET_CHAR || type == ENUM.SET_INTEGER){
-            rand = setMap.generateRandomNumber(((BitSet)state).getSet());
-        }
-        else{
-            rand = setMap.generateRandomNumber(state);
-        }
+    public boolean insert(T state) {
         long i = 1;
-        if(((i << rand) | set) != set){
-            set = set | (i << rand);
+        int sp = getStatePos(state);
+        if(((i << sp) | set) != set){
+            set = ((i << sp) | set);
             size++;
             return true;
         }
         return false;
     }
 
-
     @Override
-    public Boolean remove(T state) {
-        int rand;
-        if(type == ENUM.SET_STRING || type == ENUM.SET_CHAR || type == ENUM.INTEGER){
-            rand = setMap.generateRandomNumber(((BitSet)state).getSet());
+    public boolean remove(T state) {
+        long i = 1;
+        long key;
+        if(state.equals(ENUM.SET_INTEGER)){
+            BitSet bitSet = (BitSet) state;
+            key = bitSet.getSet();
         }
         else{
-            rand = setMap.generateRandomNumber(state);
+            int val = (int) state;
+            key = val;
         }
-        long i = 1;
-        if((~(i << rand) & set) != 0){
-            set = set & i;
+        if(map.containsKey(key)){
+            set = (i << map.get(key)) & set;
             size--;
+
+            //put back the position of set into setPositions
+            int t = map.get(key);
+            setPositions[length - size - 1] = t;
+            map.remove(key);
+            reverseMap.remove(t);
             return true;
         }
         return false;
     }
 
-
-
     @Override
     public Set union(Set s) {
-        if(s.getType().equals(type)) {
+        if(type == s.getType()) {
             BitSet union_set = new BitSet(type);
             union_set.setSet(set | s.getSet());
             union_set.setSize(Long.bitCount(union_set.getSet()));
+            union_set.setType(type);
             Set set = union_set;
             return set;
         }
@@ -71,10 +83,11 @@ public class BitSet<T> implements Set<T> {
 
     @Override
     public Set intersection(Set s) {
-        if(s.getType().equals(type)) {
+        if(type == s.getType()) {
             BitSet intersection_set = new BitSet(type);
             intersection_set.setSet(set & s.getSet());
             intersection_set.setSize(Long.bitCount(intersection_set.getSet()));
+            intersection_set.setType(s.getType());
             Set set = intersection_set;
             return set;
         }
@@ -83,25 +96,38 @@ public class BitSet<T> implements Set<T> {
 
     @Override
     public boolean isEqual(Set s) {
-        if(set == s.getSet() && s.getType().equals(type) && s.getSize() == size)
+        if(set == s.getSet()){
             return true;
-        return false;
-    }
-
-
-    @Override
-    public Boolean isEmpty() {
-        if(set == 0)
-            return true;
+        }
         return false;
     }
 
     @Override
-    public Boolean contains(T state) {
-        int rand = setMap.generateRandomNumber(state);
-        long l = 1;
-        if(((l << rand) & set) > 0){
+    public boolean isEmpty() {
+        if(set == 0){
             return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean contains(T state) {
+        long key;
+        if(state.equals(ENUM.SET_INTEGER)){
+            BitSet bitSet = (BitSet) state;
+            key = bitSet.getSet();
+        }
+        else{
+            int val = (int) state;
+            key = val;
+        }
+        if(map.containsKey(key)){
+            int sp = map.get(key);
+            long l = 1;
+            if(((l << sp) & set) != 0){
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -109,6 +135,7 @@ public class BitSet<T> implements Set<T> {
     @Override
     public void clear() {
         set = 0;
+        size = 0;
     }
 
     @Override
@@ -116,160 +143,100 @@ public class BitSet<T> implements Set<T> {
         return size;
     }
 
-    @Override
-    public void setSize(int size) {
-        this.size = size;
-    }
 
-    @Override
     public int getLength() {
         return length;
     }
-
 
     @Override
     public long getSet() {
         return set;
     }
 
+    @Override
+    public ENUM getType() {
+        return type;
+    }
+
+    @Override
+    public List<T> getElements() {
+        List<T> elements = new ArrayList<>();
+        for(long i = 0; i < length; i++){
+            long j = 1;
+            if(((j << i) & set) != 0) {
+                elements.add(reverseMap.get((int)i));
+            }
+        }
+        return elements;
+    }
 
     private void setSet(long set) {
         this.set = set;
     }
 
 
-    @Override
-    public ENUM getType(){
-        return type;
+    private void setSize(int size) {
+        this.size = size;
     }
 
-
-    @Override
-    public List<T> getElements() {
-        if(this.type.equals(ENUM.STRING)){
-
+    private int getStatePos(T state) {
+        long key;
+        if(type.equals(ENUM.SET_INTEGER)){
+            BitSet bitSet = (BitSet) state;
+            key = bitSet.getSet();
         }
-        else{
-
-        }
-
-        byte[] bit_subset = ByteBuffer.allocate(4).putLong(set).array();
-        List<Integer> list = new ArrayList<>();
-        if(this.type.equals(ENUM.STRING)){
-            for(int i = 0; i < 8; i++) {
-                ArrayList<Integer> indexes = setMap.getValueFromTable(bit_subset[i]);
-                for (Integer j : indexes) {
-                    list.add(j);
-                }
-            }
-
-            List<Object> arrayList = new ArrayList<>();
-            for(int i = 0; i < list.size(); i++){
-                arrayList.add(setMap.getReverseMap().get(list.get(i)));
-            }
-            return  arrayList;
-
-        }
-        else{
-            for(int i = 0; i < 8; i++) {
-                ArrayList<Integer> indexes = setMap.getValueFromTable(bit_subset[i]);
-                for (Integer j : indexes) {
-                    list.add(j);
-                }
-            }
+        else {
+            int val  = (int) state;
+            key = val;
         }
 
-        List<T> list = new ArrayList<>();
-        byte[] bit_subset = ByteBuffer.allocate(4).putLong(set).array();
-        for(int i = 0; i < 8; i++){
-            ArrayList<T> indexes = setMap.getValueFromTable(bit_subset[i]);
-            for(T j : indexes){
-                list.add(j);
-            }
+        if (!map.containsKey(key)) {
+            Random random = new Random();
+            int setPosition = random.nextInt(length - size);
+
+            //replace last element of setPositions with setPosition
+            int ret = setPositions[setPosition];
+            setPositions[setPosition] = setPositions[length - size - 1];
+            map.put(key, ret);
+            reverseMap.put(ret, state);
+            return ret;
         }
-        return list;
+        return map.get(key);
     }
 
-
-    private void checkType(ENUM e){
-        if(e == ENUM.INTEGER){
-            if(map.containsKey(ENUM.INTEGER)){
-                setMap = map.get(ENUM.INTEGER);
+    private void setType(BitSet.ENUM e){
+        if(e == BitSet.ENUM.INTEGER) {
+            if (setTypeMap.containsKey(BitSet.ENUM.INTEGER)) {
+                map = setTypeMap.get(BitSet.ENUM.INTEGER);
+                reverseMap = setTypeReverseMap.get(BitSet.ENUM.INTEGER);
+            } else {
+                Map<Long, Integer> m = new HashMap<>();
+                Map<Integer, T> r = new HashMap<>();
+                setTypeMap.put(BitSet.ENUM.INTEGER, m);
+                setTypeReverseMap.put(BitSet.ENUM.INTEGER, r);
+                map = m;
+                reverseMap = r;
             }
-            else{
-                SetMap m = new SetMap();
-                map.put(ENUM.INTEGER, m);
-                setMap = m;
-            }
-              }
-        else if(e == ENUM.STRING){
-            if(map.containsKey(ENUM.STRING)){
-                setMap = map.get(ENUM.STRING);
-            }
-            else{
-                SetMap m = new SetMap();
-                map.put(ENUM.STRING, m);
-                setMap = m;
-            }
+            type = ENUM.INTEGER;
         }
-        else if(e == ENUM.CHAR){
-            if(map.containsKey(ENUM.CHAR)){
-                setMap = map.get(ENUM.CHAR);
+        else if(e == BitSet.ENUM.SET_INTEGER){
+            if(setTypeMap.containsKey(BitSet.ENUM.SET_INTEGER)){
+                map = setTypeMap.get(BitSet.ENUM.SET_INTEGER);
+                reverseMap = setTypeReverseMap.get(BitSet.ENUM.SET_INTEGER);
             }
             else{
-                SetMap m = new SetMap();
-                map.put(ENUM.CHAR, m);
-                setMap = m;
+                Map<Long, Integer> m = new HashMap<>();
+                Map<Integer, T> r = new HashMap<>();
+                setTypeMap.put(BitSet.ENUM.SET_INTEGER, m);
+                setTypeReverseMap.put(BitSet.ENUM.SET_INTEGER, r);
+                map = m;
+                reverseMap = r;
             }
-        }
-        else if(e == ENUM.SET_INTEGER){
-            if(map.containsKey(ENUM.SET_INTEGER)){
-                setMap = map.get(ENUM.SET_INTEGER);
-            }
-            else{
-                SetMap m = new SetMap();
-                map.put(ENUM.SET_INTEGER, m);
-                setMap = m;
-            }
-        }
-        else if(e == ENUM.SET_STRING){
-            if(map.containsKey(ENUM.SET_STRING)){
-                setMap = map.get(ENUM.SET_STRING);
-            }
-            else{
-                SetMap m = new SetMap();
-                map.put(ENUM.SET_STRING, m);
-                setMap = m;
-            }
-        }
-        else if(e == ENUM.SET_CHAR){
-            if(map.containsKey(ENUM.SET_CHAR)){
-                setMap = map.get(ENUM.SET_CHAR);
-            }
-            else{
-                SetMap m = new SetMap();
-                map.put(ENUM.SET_CHAR, m);
-                setMap = m;
-            }
+            type = ENUM.SET_INTEGER;
         }
     }
 
-    long bitCount(long i){
-        i = i - ((i >>> 1) & 0x55555555);
-        i = (i & 0x33333333) + ((i >>> 2) & 0x33333333);
-        i = (i + (i >>> 4)) & 0x0f0f0f0f;
-        i = i + (i >>> 8);
-        i = i + (i >>> 16);
-        return i & 0x3f;
-
+    enum ENUM{
+        INTEGER, SET_INTEGER
     }
-
-
 }
-
-
-
-enum ENUM{
-    INTEGER, STRING, CHAR, SET_INTEGER, SET_STRING, SET_CHAR
-}
-
